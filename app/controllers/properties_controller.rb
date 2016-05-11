@@ -4,7 +4,7 @@ class PropertiesController < ApplicationController
   # GET /properties
   # GET /properties.json
   def index
-    @properties = Property.where("category_id = ?",params[:category_id]).order('created_at desc') #show most recent listings first
+    @properties = Property.where("category_id = ?",params[:id]).order('created_at desc') #show most recent listings first
     if @properties.empty?
       flash[:notice] = 'No Properties Found'
       redirect_to root_path

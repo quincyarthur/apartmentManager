@@ -1,17 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%=link_to 'Property Listings', root_path%></h1>
-<div id="display_properties">
-	<% @properties.each do |property|%>
-		<div>
-  			<%=property.num_bedrooms%>
-    		<%=property.num_bathrooms%>
-    		<%=property.monthly_amt%>
-    		<span><%= link_to 'Show', property %></span>
-    		<span><%= link_to 'Edit', edit_property_path(property) %></span>
-    		<span><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %></span>
-  		</div>
-    <%end%>
-</div>
-    
+<h1>Property Listings</h1>
+
+    <% @properties.each do |property| %>
+    	<div>	
+    		<%=property.property_name%>
+    		<%= link_to 'Show', property %>
+       		<%= link_to 'Edit', edit_property_path(property) %></td>
+       		<%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %>
+   		</div>
+    <% end %>
 <%= link_to 'New Property', new_property_path %>

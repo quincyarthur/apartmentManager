@@ -1,18 +1,19 @@
-<h1 id='greeting'>Welcome to Apartment Manager</h1>
-<%if user_signed_in?%>
-	<div id="signIn">
-		<%=button_to "Sign Out", destroy_user_session_path, method: :delete %>
-	</div>
+<h1>Welcome to Apartment Manager</h1>
+
+<%if tenant_signed_in?%>
+	<%=link_to 'Sign Out', destroy_tenant_session_path, method: :delete%>
 <%else%>
-	<div id="signOut">
-		<%=button_to "Sign In", user_session_path %>
-	</div>
+	<%=link_to 'Sign In', tenant_session_path%>
 <%end%>
 
-<div id ='rentalCategories'>
-	<%@categories.each do |category| %>
-		<div>
-			<%=link_to category.name, properties_path(category_id: category.id)%>
-		</div>
-	<%end%>
-</div>
+<%if landlord_signed_in?%>
+	<%=link_to 'Sign Out', destroy_landlord_session_path, method: :delete%>
+<%else%>
+	<%=link_to 'Sign In', landlord_session_path%>
+<%end%>
+
+<%@categories.each do |category|%>
+	<div>
+		<%=link_to category.name, properties_path(id: category.id)%>
+	</div>	
+<%end%>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  resources :properties
+  devise_for :landlords
+  devise_for :tenants
   resources :properties
   get '/pages' => 'pages#index'
   root to: "pages#index"
