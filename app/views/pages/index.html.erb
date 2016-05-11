@@ -1,0 +1,18 @@
+<h1 id='greeting'>Welcome to Apartment Manager</h1>
+<%if user_signed_in?%>
+	<div id="signIn">
+		<%=button_to "Sign Out", destroy_user_session_path, method: :delete %>
+	</div>
+<%else%>
+	<div id="signOut">
+		<%=button_to "Sign In", user_session_path %>
+	</div>
+<%end%>
+
+<div id ='rentalCategories'>
+	<%@categories.each do |category| %>
+		<div>
+			<%=link_to category.name, properties_path(category_id: category.id)%>
+		</div>
+	<%end%>
+</div>
