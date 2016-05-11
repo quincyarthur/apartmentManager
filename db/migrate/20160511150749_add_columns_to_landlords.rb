@@ -3,7 +3,7 @@ class AddColumnsToLandlords < ActiveRecord::Migration
     add_column :landlords, :name, :string
     add_column :landlords, :phone_number, :int
     add_column :landlords, :subscription_id, :int
-    add_column :landlords, :balanace, :int
+    add_column :landlords, :balance, :int
     add_column :landlords, :active, :boolean
   end
 end

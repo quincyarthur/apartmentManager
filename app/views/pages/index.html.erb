@@ -1,15 +1,15 @@
 <h1>Welcome to Apartment Manager</h1>
 
 <%if tenant_signed_in?%>
-	<%=link_to 'Sign Out', destroy_tenant_session_path, method: :delete%>
+	<%=link_to 'Tenant Sign Out', destroy_tenant_session_path, method: :delete%>
 <%else%>
-	<%=link_to 'Sign In', tenant_session_path%>
+	<%=link_to 'Tenant Sign In', tenant_session_path%>
 <%end%>
 
 <%if landlord_signed_in?%>
-	<%=link_to 'Sign Out', destroy_landlord_session_path, method: :delete%>
+	<%=link_to 'LandLord Sign Out', destroy_landlord_session_path, method: :delete%>
 <%else%>
-	<%=link_to 'Sign In', landlord_session_path%>
+	<%=link_to 'LandLord Sign In', landlord_session_path%>
 <%end%>
 
 <%@categories.each do |category|%>

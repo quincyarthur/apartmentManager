@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tenants_id: 
+  properties_id: 
+  rent_due_date: 2016-05-11
+  lease_start_date: 2016-05-11
+  lease_end_date: 2016-05-11
+
+two:
+  tenants_id: 
+  properties_id: 
+  rent_due_date: 2016-05-11
+  lease_start_date: 2016-05-11
+  lease_end_date: 2016-05-11

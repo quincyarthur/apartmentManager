@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tenants_id: 
+  payment_amount: 
+
+two:
+  tenants_id: 
+  payment_amount: 
