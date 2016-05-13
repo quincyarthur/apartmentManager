@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511173000) do
+ActiveRecord::Schema.define(version: 20160512203900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,23 +35,23 @@ ActiveRecord::Schema.define(version: 20160511173000) do
   end
 
   create_table "landlords", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "name"
     t.integer  "phone_number"
     t.integer  "subscription_id"
-    t.decimal  "balance"
-    t.boolean  "active"
+    t.decimal  "balance",                default: 0.0
+    t.boolean  "active",                 default: true
   end
 
   add_index "landlords", ["email"], name: "index_landlords_on_email", unique: true, using: :btree
@@ -68,14 +68,14 @@ ActiveRecord::Schema.define(version: 20160511173000) do
     t.integer  "num_units"
     t.decimal  "monthly_amt"
     t.string   "description"
-    t.integer  "islands_id"
+    t.integer  "island_id"
   end
 
   create_table "property_amenities", force: :cascade do |t|
-    t.integer  "properties_id"
-    t.integer  "amenities_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "property_id"
+    t.integer  "amenity_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -86,15 +86,15 @@ ActiveRecord::Schema.define(version: 20160511173000) do
   end
 
   create_table "tenant_payment_details", force: :cascade do |t|
-    t.integer  "tenants_id"
+    t.integer  "tenant_id"
     t.decimal  "payment_amount"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
 
   create_table "tenant_rent_details", force: :cascade do |t|
-    t.integer  "tenants_id"
-    t.integer  "properties_id"
+    t.integer  "tenant_id"
+    t.integer  "property_id"
     t.date     "rent_due_date"
     t.date     "lease_start_date"
     t.date     "lease_end_date"
@@ -103,22 +103,22 @@ ActiveRecord::Schema.define(version: 20160511173000) do
   end
 
   create_table "tenants", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",  null: false
+    t.string   "encrypted_password",     default: "",  null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "phone_number"
-    t.decimal  "balance"
+    t.decimal  "balance",                default: 0.0
   end
 
   add_index "tenants", ["email"], name: "index_tenants_on_email", unique: true, using: :btree

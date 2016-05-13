@@ -1,12 +1,15 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+
  Category.create([{name:'Residential'},{name:'Commercial'}])
- Property.create(landlord_id:1,category_id:1,island:'New Providence',street_name:'Carmichael Road',num_bedrooms:5,num_bathrooms:3,num_units:1,monthly_amt:2500,description:"nice")
- Property.create(landlord_id:1,category_id:2,island:'New Providence',street_name:'Carmichael Road',num_bedrooms:2,num_bathrooms:1,num_units:1,monthly_amt:600,description:"nice")
-  Property.create(landlord_id:1,category_id:1,island:'Bimini',street_name:'Carmichael Road',num_bedrooms:3,num_bathrooms:2,num_units:1,monthly_amt:800,description:"nice")
-   Property.create(landlord_id:1,category_id:2,island:'Eleuthera',street_name:'Carmichael Road',num_bedrooms:2,num_bathrooms:2,num_units:1,monthly_amt:700,description:"nice")
+ 
+ Amenity.create([{name:'Air Conditioning'},{name:'Washer'},{name:'Dryer'},{name:'Pool'},{name:'Gym'},{name:'Electricity'},{name:'Water'}, 
+                 {name:'Cable'},{name:'Telephone'},{name:'Internet'},{name:'Game Room'},{name:'Theater'},{name:'Community Lounge'}, 
+                 {name:'Partially Furnished'},{name:'Fully Furnished'} ])
+                
+ Subscription.create([{name:'Basic',amount:0.00},{name:'Premium',amount:30.00}])
+ 
+ Island.create([{name:'New Providence'},{name:'Eleuthera'},{name:'Harbour Island'},{name:'Berry Island'},{name:'Inagua'},
+                {name:'Grand Bahama'},{name:'Andros'},{name:'Exuma'},{name:'Mayaguana'},{name:'Abaco'},{name:'San Salvador'},
+                {name:'Acklins'},{name:'Crooked Island'},{name:'Rum Cay'},{name:'Ragged Island'},{name:'Cat Island'},{name:'Long Island'}, 
+                {name:'Bimini'}])
