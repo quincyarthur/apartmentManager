@@ -1,13 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Property Listings</h1>
+<h1><%=@category_name%> Properties</h1>
 
-    <% @properties.each do |property| %>
+    <%@properties.each do |property|%>
     	<div>	
-    		<%=property.property_name%>
-    		<%= link_to 'Show', property %>
-       		<%= link_to 'Edit', edit_property_path(property) %></td>
-       		<%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %>
+    		<div class="property_name">
+    			<%=link_to property.property_name, property_path(property)%>
+    		</div>
+    		<div class="property_details">
+    			Monthly Amount: $<%=property.monthly_amt%>
+    			Description: <%=property.description%>
+    		</div>
    		</div>
     <% end %>
-<%= link_to 'New Property', new_property_path %>

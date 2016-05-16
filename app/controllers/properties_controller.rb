@@ -1,32 +1,29 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :destroy]
+  before_filter :require_landlord, :only => [:new,:create,:edit, :update, :delete]
 
-  # GET /properties
-  # GET /properties.json
   def index
     @properties = Property.where("category_id = ?",params[:id]).order('created_at desc') #show most recent listings first
+    @category_name = Category.find(params[:id]).name
     if @properties.empty?
       flash[:notice] = 'No Properties Found'
       redirect_to root_path
     end
   end
- 
-  # GET /properties/1
-  # GET /properties/1.json
+
   def show
+    @property_landlord = @property.landlord
+    @amount_of_interest_shown = @property.prospective_tenants.count
+    @prospective_tenant = ProspectiveTenant.new()
   end
 
-  # GET /properties/new
   def new
     @property = Property.new
   end
-
-  # GET /properties/1/edit
+  
   def edit
   end
-
-  # POST /properties
-  # POST /properties.json
+  
   def create
     @property = Property.new(property_params)
 
@@ -41,8 +38,6 @@ class PropertiesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /properties/1
-  # PATCH/PUT /properties/1.json
   def update
     respond_to do |format|
       if @property.update(property_params)
@@ -55,8 +50,6 @@ class PropertiesController < ApplicationController
     end
   end
 
-  # DELETE /properties/1
-  # DELETE /properties/1.json
   def destroy
     @property.destroy
     respond_to do |format|
@@ -67,11 +60,15 @@ class PropertiesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def require_landlord
+      unless landlord_signed_in?
+        redirect_to root_path
+      end
+    end
     def set_property
       @property = Property.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
       params.fetch(:property, {})
     end

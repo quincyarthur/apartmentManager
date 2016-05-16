@@ -1,15 +1,28 @@
 <h1>Welcome to Apartment Manager</h1>
 
 <%if tenant_signed_in?%>
-	<%=link_to 'Tenant Sign Out', destroy_tenant_session_path, method: :delete%>
+<%= button_to destroy_tenant_session_path, class: 'btn btn-default', method: :delete do%>
+		Tenant Log Out
+		<span class="glyphicon glyphicon-user"></span>
+	<%end%>
 <%else%>
-	<%=link_to 'Tenant Sign In', tenant_session_path%>
+	<%= button_to tenant_session_path, class: 'btn btn-default' do%>
+		Tenant Log In
+		<span class="glyphicon glyphicon-user"></span>
+	<%end%>
 <%end%>
 
 <%if landlord_signed_in?%>
-	<%=link_to 'LandLord Sign Out', destroy_landlord_session_path, method: :delete%>
+	<%= current_landlord.calc_balance%>
+	<%= button_to destroy_landlord_session_path, class: 'btn btn-default', method: :delete do%>
+		Landlord Log Out
+		<span class="glyphicon glyphicon-user"></span>
+	<%end%>
 <%else%>
-	<%=link_to 'LandLord Sign In', landlord_session_path%>
+	<%= button_to landlord_session_path, class: 'btn btn-default' do%>
+		Landlord Log In
+		<span class="glyphicon glyphicon-user"></span>
+	<%end%>
 <%end%>
 
 <%@categories.each do |category|%>
@@ -17,3 +30,4 @@
 		<%=link_to category.name, properties_path(id: category.id)%>
 	</div>	
 <%end%>
+

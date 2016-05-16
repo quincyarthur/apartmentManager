@@ -5,6 +5,7 @@ class Property < ActiveRecord::Base
   has_many :tenant_rent_details
   has_many :property_amenities
   has_many :amenities, through: :property_amenities
+  has_many :prospective_tenants
   
   validates :num_bedrooms, :num_bathrooms, :num_units, :monthly_amt, numericality: true
   validates :num_bedrooms, :num_units, numericality: {only_integer: true}

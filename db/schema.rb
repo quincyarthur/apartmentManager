@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512203900) do
+ActiveRecord::Schema.define(version: 20160516151017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160512203900) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.string   "name"
-    t.integer  "phone_number"
+    t.string   "phone_number"
     t.integer  "subscription_id"
     t.decimal  "balance",                default: 0.0
     t.boolean  "active",                 default: true
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20160512203900) do
     t.integer  "category_id"
     t.string   "street_name"
     t.integer  "num_bedrooms"
-    t.integer  "num_bathrooms"
+    t.decimal  "num_bathrooms"
     t.integer  "num_units"
     t.decimal  "monthly_amt"
     t.string   "description"
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(version: 20160512203900) do
     t.integer  "amenity_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "prospective_tenants", force: :cascade do |t|
+    t.integer  "property_id"
+    t.string   "name"
+    t.string   "phone_number"
+    t.date     "appointment_date"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -117,7 +126,7 @@ ActiveRecord::Schema.define(version: 20160512203900) do
     t.datetime "updated_at",                           null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "phone_number"
+    t.string   "phone_number"
     t.decimal  "balance",                default: 0.0
   end
 

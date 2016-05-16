@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :landlords
   devise_for :tenants
   resources :properties
+  resources :prospective_tenants
   get '/pages' => 'pages#index'
   root to: "pages#index"
  
