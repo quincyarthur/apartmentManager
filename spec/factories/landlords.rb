@@ -14,7 +14,20 @@ FactoryGirl.define do
        
       after(:create) do |landlord, evaluator|
           evaluator.properties_count.times do
-            create(:property,landlord: landlord) do |property|
+            create(:residential_property,landlord: landlord) do |property|
+              rand(1..5).times do
+                x=0
+                arr = (1..15).to_a.shuffle
+                create(:propertyAmenity, property: property,amenity_id: arr[x].to_i)
+                x+=1
+              end
+              create(:tenant) do |tenant|
+                create(:tenant_rent_detail, property: property,tenant:tenant) 
+              end
+            end
+          end
+          rand(1..3).times do
+            create(:commercial_property,landlord: landlord) do |property|
               rand(1..5).times do
                 x=0
                 arr = (1..15).to_a.shuffle

@@ -1,0 +1,8 @@
+<h1>Landlord Dashboard</h1>
+<h3>Welcome <%=current_landlord.name%></h3>
+<%=link_to "Create Property Listing", new_property_path%>
+<% @properties.each do |property|%>
+	<div>
+		<%=property.property_name%>
+	</div>
+<%end%>

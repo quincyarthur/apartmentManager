@@ -1,0 +1,61 @@
+<%= form_for (@property) do |f| %>
+
+  <% if @property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+      <ul>
+      <% @property.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <div class="form-group">
+    <%= f.hidden_field :landlord_id, value: current_landlord.id, autofocus: true, class: "form-control"%>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :street_name, class: "control-label"%><br />
+    <%= f.text_field :street_name, autofocus: true, class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :island_id, class: "control-label"%><br />
+    <%= f.select :island_id,  options_from_collection_for_select(Island.all, 'id', 'name'), class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :category_id, class: "control-label"%><br />
+    <%= f.select :category_id,  options_from_collection_for_select(Category.all, 'id', 'name'), class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :num_bedrooms, class: "control-label" %><br />
+    <%= f.number_field :num_bedrooms, autofocus: true, class: "form-control" %>
+  </div>
+  
+   <div class="form-group">
+    <%= f.label :num_bathrooms, class:"control-label"%><br />
+    <%= f.number_field :num_bathrooms, autofocus: true, class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :num_units, class: "control-label"%><br />
+    <%= f.number_field :num_units, autofocus: true, class: "form-control" %>
+  </div>
+  
+   <div class="form-group">
+    <%= f.label :monthly_amt, class:"control-label"%><br />
+    <%= f.number_field :monthly_amt, autofocus: true, class: "form-control" %>
+  </div>
+  
+   <div class="form-group">
+    <%= f.label :description, class: "control-label"%><br />
+    <%= f.text_area :description, autofocus: true, class: "form-control" %>
+  </div>
+ 
+  <div class="form-group">
+    <%= f.submit 'Create Property', class: "btn btn-default"%>
+  </div>
+<% end %>

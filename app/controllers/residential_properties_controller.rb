@@ -1,10 +1,10 @@
-class PropertiesController < ApplicationController
+class ResidentialPropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :destroy]
   before_filter :require_landlord, :only => [:new,:create,:edit, :update, :delete]
 
   def index
-    @properties = Property.where("category_id = ?",params[:id]).order('created_at desc') #show most recent listings first
-    @category_name = Category.find(params[:id]).name
+    @properties = ResidentialProperty.where("category_id = ?",params[:id]).order('created_at desc') if params[:id].present? #show most recent listings first
+    @category_name = Category.find(params[:id]).name if params[:id].present?
     if @properties.empty?
       flash[:notice] = 'No Properties Found'
       redirect_to root_path
@@ -25,11 +25,11 @@ class PropertiesController < ApplicationController
   end
   
   def create
-    @property = Property.new(property_params)
+    @property = ResidentialProperty.new(property_params)
 
     respond_to do |format|
       if @property.save
-        format.html { redirect_to @property, notice: 'Property was successfully created.' }
+        format.html { redirect_to "/dashboard", notice: 'Property was successfully created.' }
         format.json { render :show, status: :created, location: @property }
       else
         format.html { render :new }
@@ -66,10 +66,11 @@ class PropertiesController < ApplicationController
       end
     end
     def set_property
-      @property = Property.find(params[:id])
+      @property = ResidentialProperty.find(params[:id]) if params[:id].present?
     end
 
     def property_params
-      params.fetch(:property, {})
+      params.require(:property).permit(:landlord_id,:street_name,:island_id,:num_bedrooms,:num_bathrooms,:monthly_amt,:description,:category_id,:num_units)
+      #params.fetch(:property, {})
     end
 end

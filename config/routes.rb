@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  resources :properties
-  devise_for :landlords
-  devise_for :tenants
+  resources :commercial_properties
+  resources :residential_properties
+  devise_for :landlords, controllers: {registrations: "landlords/registrations"}
+  devise_scope :landlord do
+    get "/dashboard"=> "landlords#dashboard", :as => "dashboard"
+  end
+  devise_for :tenants, controllers: {registrations: "tenants/registrations"}
   resources :properties
   resources :prospective_tenants
   get '/pages' => 'pages#index'

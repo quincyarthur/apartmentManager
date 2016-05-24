@@ -10,6 +10,9 @@ class ProspectiveTenantsController < ApplicationController
     if @prospective_tenant.save
       flash[:success] = 'Appointment Created'
       redirect_to controller: 'properties', action: 'show', id: @id
+    else
+      flash[:notice] = 'Error Creating Appointment'
+      redirect_to controller: 'properties', action: 'show', id: @id
     end
   end
   

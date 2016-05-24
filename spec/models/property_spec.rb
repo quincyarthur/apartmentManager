@@ -9,8 +9,8 @@ RSpec.describe Property, type: :model do
   end
 
   #Ensures instance level methods work
-  it 'creates property using bedrooms bathrooms and street name' do                          
-      @property.property_name.should == "4 Bed 2 Bath Carmichael Road"
+  it 'creates property name using bedrooms bathrooms and street name' do                
+      expect(@property.property_name).to eq("4 Bed 2.0 Bath Carmichael Road")
   end
   
   #Ensures values are only numeric
@@ -68,6 +68,27 @@ RSpec.describe Property, type: :model do
   
   it 'verifies monthly amount is not nil' do
     @property.monthly_amt = nil
+    @property.should_not be_valid  
+  end
+  
+  #Ensures numeric values are positive
+  it 'verifies square_feet is positive' do
+    @property.num_bedrooms = -1
+    @property.should_not be_valid  
+  end
+  
+  it 'verifies num_bathrooms is positive' do
+    @property.num_bathrooms = -1
+    @property.should_not be_valid  
+  end
+  
+  it 'verifies num_units is positive' do
+    @property.num_units = -1
+    @property.should_not be_valid  
+  end
+  
+  it 'verifies monthly_amt is positive' do
+    @property.monthly_amt = -1
     @property.should_not be_valid  
   end
   

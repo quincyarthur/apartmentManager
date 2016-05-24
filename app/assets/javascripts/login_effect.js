@@ -1,14 +1,14 @@
 $(document).ready(function(){
 
-   $("#show_login").click(function(){
-    showpopup();
-   });
-   $("#close_login").click(function(){
-    hidepopup();
-   });
+	$(document).on("click","#show_login", function(){
+		showpopup();
+	});
+   
+   $(document).on("click","#close_login", function(){
+		hidepopup();
+	});
 
 });
-
 
 function showpopup()
 {

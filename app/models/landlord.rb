@@ -1,5 +1,6 @@
 class Landlord < ActiveRecord::Base 
-  has_many :properties
+  has_many :residential_properties
+  has_many :commercial_properties
   belongs_to :subscription
   
   validates :name, :phone_number, :subscription_id, presence:  true
@@ -9,7 +10,7 @@ class Landlord < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   
   def get_basic_balance
-    basic_balance = (self.properties.count * 30) >= 0 ? 30 : self.properties.count * 30
+    basic_balance = (self.properties.count * 30) <= 0 ? 30 : self.properties.count * 30
   end
   
   def calc_balance

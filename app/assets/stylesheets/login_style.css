@@ -4,7 +4,9 @@ body
 }
 #loginform
 {
-   margin-top:100px;
+   width:280px;
+   height:225px;
+   margin-top:25px;
    background-color:#585858;
    border-radius:3px;
    box-shadow:0px 0px 10px 0px #424242;
@@ -14,11 +16,17 @@ body
    visibility:hidden;
    display:none;
 }
+
+#show_login:hover, #close_login:hover
+{
+    cursor: pointer;
+}
+
 #loginform #close_login
 {
-   position:absolute;
-   top:140px;
-   left:735px;
+   position:relative;
+   /*top:180px;
+   left:580px;*/
    width:15px;
    height:15px;
 }
@@ -28,7 +36,7 @@ body
    font-size:22px;
    color:#E6E6E6;
 }
-#loginform #login
+#loginform #prospective_tenant_property_id
 {
    width:250px;
    height:40px;
@@ -36,7 +44,7 @@ body
    border-radius:3px;
    padding:5px;
 }
-#loginform #password
+#loginform #prospective_tenant_name
 {
    margin-top:5px;
    width:250px;
@@ -45,7 +53,25 @@ body
    border-radius:3px;
    padding:5px;
 }
-#loginform #dologin
+#loginform #prospective_tenant_phone_number
+{
+   margin-top:5px;
+   width:250px;
+   height:40px;
+   border:2px solid silver;
+   border-radius:3px;
+   padding:5px;
+}
+#loginform #prospective_tenant_appointment_date
+{
+   margin-top:5px;
+   width:250px;
+   height:40px;
+   border:2px solid silver;
+   border-radius:3px;
+   padding:5px;
+}
+#loginform .schedule_appointment
 {
    margin-left:-5px;
    margin-top:10px;

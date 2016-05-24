@@ -1,6 +1,6 @@
 class TenantRentDetail < ActiveRecord::Base
   belongs_to :tenant
-  belongs_to :property
+  belongs_to :property, polymorphic: true
   
   validates :rent_due_date, :lease_start_date, :lease_end_date, :tenant_id, :property_id, presence: true
   validate :rent_due_date_cannot_be_in_the_past, :lease_end_date_cannot_be_before_lease_start_date

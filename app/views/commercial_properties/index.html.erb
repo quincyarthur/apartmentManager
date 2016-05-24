@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Commercial Properties</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @commercial_properties.each do |commercial_property| %>
+      <tr>
+        <td><%= link_to 'Show', commercial_property %></td>
+        <td><%= link_to 'Edit', edit_commercial_property_path(commercial_property) %></td>
+        <td><%= link_to 'Destroy', commercial_property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Commercial property', new_commercial_property_path %>
