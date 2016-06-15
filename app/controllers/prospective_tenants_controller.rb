@@ -5,14 +5,16 @@ class ProspectiveTenantsController < ApplicationController
   end
   
   def create
+
     @prospective_tenant = ProspectiveTenant.new(prospective_tenants_params)
     @id = @prospective_tenant.property_id
     if @prospective_tenant.save
       flash[:success] = 'Appointment Created'
-      redirect_to controller: 'properties', action: 'show', id: @id
+      redirect_to :back
+      #redirect_to controller: 'residential_properties', action: 'show', id: @id
     else
       flash[:notice] = 'Error Creating Appointment'
-      redirect_to controller: 'properties', action: 'show', id: @id
+      redirect_to :back
     end
   end
   

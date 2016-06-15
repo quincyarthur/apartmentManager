@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524144025) do
+ActiveRecord::Schema.define(version: 20160524175135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,7 +93,6 @@ ActiveRecord::Schema.define(version: 20160524144025) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "landlord_id"
-    t.integer  "category_id"
     t.string   "street_name"
     t.integer  "num_bedrooms"
     t.decimal  "num_bathrooms"

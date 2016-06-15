@@ -1,0 +1,43 @@
+<%= form_tag commercial_properties_path, method: :get, class: "form-horizontal col-md-10" do%>
+	<div class="form-group">
+   		<%= label_tag :island_id, nil, class: "control-label"%><br />
+    	<%= select_tag :island_id,  options_from_collection_for_select(Island.all, 'id', 'name'), class: "form-control" %>
+  	</div>
+
+  	<div class="form-group">
+   		<%= label_tag  :category_id, nil, class: "control-label"%><br />
+    	<%= select_tag :category_id,  options_from_collection_for_select(Category.all, 'id', 'name', include_blank: true), class: "form-control" %>
+  	</div>
+
+    <div class="row">
+        <div>
+           <label class="control-label">Square Feet</label>
+        </div>
+        <div class="form-group col-md-6" >
+            <%= number_field_tag :min_square_feet, nil, min: 1, class: "form-control", placeholder: "Minimum Square Feet" %>
+        </div>
+
+        <div class="form-group col-md-6">
+            <%= number_field_tag :max_square_feet, nil, min: 1, class: "form-control", placeholder: "Maximum Square Feet" %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div>
+           <label class="control-label">Price Range</label>
+        </div>
+
+        <div class="form-group col-md-6" >
+            <%= number_field_tag :min_monthly_amt, nil, min: 1, class: "form-control", placeholder: "Minimum Monthly Amount" %>
+        </div>
+
+        <div class="form-group col-md-6">
+            <%= number_field_tag :max_monthly_amt, nil, min: 1, class: "form-control", placeholder: "Maximum Monthly Amount" %>
+        </div>
+    </div>
+
+  	<div class="form-group">
+    	<%= submit_tag 'Search Commercial Properies', class: "btn btn-default"%>
+  	</div>
+
+<%end%>

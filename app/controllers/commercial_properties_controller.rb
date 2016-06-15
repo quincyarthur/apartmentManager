@@ -3,7 +3,11 @@ class CommercialPropertiesController < ApplicationController
   before_filter :require_landlord, :only => [:new,:create,:edit, :update, :delete]
 
   def index
-    @commercial_properties = CommercialProperty.all
+    @commercial_properties = CommercialProperty.filter(params.slice(:island_id,:category_id,:min_square_feet,:max_square_feet,:min_monthly_amt,:max_monthly_amt))
+    unless @commercial_properties.present?
+        flash[:notice] = "No Properties matching this criteria were found"
+        redirect_to :back
+     end 
   end
 
   def show
@@ -63,6 +67,7 @@ class CommercialPropertiesController < ApplicationController
     end
 
     def commercial_property_params
-      params.fetch(:commercial_property, {})
+      params.require(:commercial_property).permit(:landlord_id,:street_name,:island_id,:num_bathrooms,:monthly_amt,:description,:category_id,:num_units)
+      #params.fetch(:commercial_property, {})
     end
 end

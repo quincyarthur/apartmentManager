@@ -13,16 +13,54 @@
 
 <body>
 <div class="container">
-	<div>
-		<%=link_to 'Home', root_path%>
-	<%if landlord_signed_in?%>
-		<%= link_to 'Dashboard', "/dashboard"%>
-	<%end%>
 	<% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
+       	<div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
-	</div>>
 	
+	<nav class= "navbar navbar-inverse">
+		<div class = "navbar-header">
+			<%=link_to 'Apartment Manager', root_path, class: "navbar-brand"%>
+		</div>
+		<div>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<%if tenant_signed_in?%>
+						<%= link_to destroy_tenant_session_path, method: :delete do%>
+							Tenant Log Out
+							<span class="glyphicon glyphicon-user"></span>
+						<%end%>
+					<%else%>
+						<%= link_to new_tenant_session_path, method: :get  do%>
+							Tenant Log In
+							<span class="glyphicon glyphicon-user"></span>
+						<%end%>
+					<%end%>
+				</li>
+				<li>
+					<%if landlord_signed_in?%>
+						<%= link_to destroy_landlord_session_path, method: :delete do%>
+							Landlord Log Out
+							<span class="glyphicon glyphicon-user"></span>
+						<%end%>
+					<%else%>
+						<%= link_to new_landlord_session_path, method: :get do%>
+							Landlord Log In
+							<span class="glyphicon glyphicon-user"></span>
+						<%end%>
+					<%end%>
+				</li>
+				<li>
+					<%if landlord_signed_in?%>
+						<%= link_to 'Dashboard', "/dashboard"%>
+					<%end%>
+					
+					<%if tenant_signed_in?%>
+						<%= link_to 'Profile', root_path%>
+					<%end%>
+				</li>
+			</ul>
+		</div>
+	</nav>	
       
 	<%= yield %>
 </div>

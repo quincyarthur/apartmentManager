@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :commercial_property do
-    category_id {rand(1..2)}
+    category_id {rand(1..6)}
     island_id {rand(1..18)}
     street_name {FFaker::Address.street_name}
     square_feet {rand(250..20000)}

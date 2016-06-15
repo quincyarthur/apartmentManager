@@ -3,12 +3,11 @@ class ResidentialPropertiesController < ApplicationController
   before_filter :require_landlord, :only => [:new,:create,:edit, :update, :delete]
 
   def index
-    @properties = ResidentialProperty.where("category_id = ?",params[:id]).order('created_at desc') if params[:id].present? #show most recent listings first
-    @category_name = Category.find(params[:id]).name if params[:id].present?
-    if @properties.empty?
-      flash[:notice] = 'No Properties Found'
-      redirect_to root_path
-    end
+     @residential_properties = ResidentialProperty.filter(params.slice(:island_id,:num_bedrooms,:num_bathrooms,:min_monthly_amt,:max_monthly_amt))
+      unless @residential_properties.present?
+        flash[:notice] = "No Properties matching this criteria were found"
+        redirect_to :back
+      end 
   end
 
   def show
@@ -18,7 +17,7 @@ class ResidentialPropertiesController < ApplicationController
   end
 
   def new
-    @property = Property.new
+    @property = ResidentialProperty.new
   end
   
   def edit
@@ -70,7 +69,7 @@ class ResidentialPropertiesController < ApplicationController
     end
 
     def property_params
-      params.require(:property).permit(:landlord_id,:street_name,:island_id,:num_bedrooms,:num_bathrooms,:monthly_amt,:description,:category_id,:num_units)
+      params.require(:residential_property).permit(:landlord_id,:street_name,:island_id,:num_bedrooms,:num_bathrooms,:monthly_amt,:description,:category_id,:num_units)
       #params.fetch(:property, {})
     end
 end
