@@ -1,4 +1,4 @@
-class AddColumnToProperties < ActiveRecord::Migration
+class AddColumnsToProperties < ActiveRecord::Migration
   def change
     add_column :properties, :landlord_id, :integer
     add_column :properties, :category_id, :integer
