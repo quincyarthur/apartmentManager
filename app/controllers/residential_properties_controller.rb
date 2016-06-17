@@ -28,6 +28,13 @@ class ResidentialPropertiesController < ApplicationController
 
     respond_to do |format|
       if @property.save
+
+        if params[:images]
+            params[:images].each do |image|
+              @property.photos.create(image: image)
+            end  
+        end
+        
         format.html { redirect_to "/dashboard", notice: 'Property was successfully created.' }
         format.json { render :show, status: :created, location: @property }
       else

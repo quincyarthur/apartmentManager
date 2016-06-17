@@ -12,6 +12,8 @@ class ResidentialProperty < ActiveRecord::Base
   belongs_to :landlord
   belongs_to :island
   has_many :tenant_rent_details, as: :property
+  has_many :photos, as: :property
+  #accepts_nested_attributes_for :photo_images
   has_many :property_amenities, as: :property
   has_many :amenities, through: :property_amenities
   has_many :prospective_tenants, as: :property
@@ -24,5 +26,11 @@ class ResidentialProperty < ActiveRecord::Base
   #custom methods
   def property_name
     name = "#{self.num_bedrooms} Bed #{self.num_bathrooms} Bath #{self.street_name}"
+  end
+
+  def attachments_array=(array)
+    array.each do |file|
+       images.build(:image => file)
+    end
   end
 end
