@@ -14,8 +14,7 @@ class CommercialProperty < ActiveRecord::Base
   belongs_to :category
   belongs_to :island
   has_many :tenant_rent_details, as: :property
-  has_many :photo_images
-  accepts_nested_attributes_for :photo_images
+  has_many :photos, as: :property
   has_many :property_amenities, as: :property
   has_many :amenities, through: :property_amenities
   has_many :prospective_tenants, as: :property
@@ -30,10 +29,8 @@ class CommercialProperty < ActiveRecord::Base
     name = "#{self.square_feet} Square Feet #{self.street_name}"
   end
 
-  def attachments_array=(array)
-    array.each do |file|
-       images.build(:image => file)
-    end
+  def count_prospects
+    count = self.prospective_tenants.count
   end
   
 end

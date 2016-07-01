@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     get "/dashboard"=> "landlords#dashboard", :as => "dashboard"
   end
   devise_for :tenants, controllers: {registrations: "tenants/registrations"}
-  resources :properties
   resources :prospective_tenants
   get '/pages' => 'pages#index'
   root to: "pages#index"

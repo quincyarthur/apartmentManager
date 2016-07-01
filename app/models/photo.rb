@@ -3,19 +3,18 @@ class Photo < ActiveRecord::Base
   has_attached_file :image, 
 	:path => ":rails_root/public/images/:id/:filename",
 	:url => "/images/:id/:filename",
-	:styles => {
-  		:thumb    => ['100x100#',  :jpg, :quality => 70],
-  		:preview  => ['480x480#',  :jpg, :quality => 70],
-  		:large    => ['600>',      :jpg, :quality => 70],
-  		:retina   => ['1200>',     :jpg, :quality => 30]
-	},
-	:convert_options => {
-  		:thumb    => '-set colorspace sRGB -strip',
-  		:preview  => '-set colorspace sRGB -strip',
-  		:large    => '-set colorspace sRGB -strip',
-  		:retina   => '-set colorspace sRGB -strip -sharpen 0x0.5'
-	}
-	#validations
-	validates_attachment :image,
-                     content_type: { content_type: ["image/jpeg", "image/jpg", "image/png"] }
+	 styles: {
+  		thumb: ["64x64#", :jpg], original: ['500x500>', :jpg],
+       convert_options: { thumb: "-quality 75 -strip",
+                          original: "-quality 85 -strip" 
+                        }
+
+	 }
+
+  validates_attachment_content_type :image, content_type: /\Aimage/, message: 'Only Jpeg,png images permitted'
+  # Validate filename
+  validates_attachment_file_name :image, matches: [/png\Z/, /jpe?g\Z/]
+  # Explicitly do not validate
+  #do_not_validate_attachment_file_type :avatar
+
 end

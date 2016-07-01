@@ -1,17 +1,17 @@
-<%= form_for (@property) , html: {multipart: true} do |f|%>
+<%= form_for (@residential_property) , html: {multipart: true} do |f|%>
 
-  <% if @property.errors.any? %>
+  <% if @residential_property.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+      <h2><%= pluralize(@residential_property.errors.count, "error") %> prohibited this property from being saved:</h2>
       <ul>
-      <% @property.errors.full_messages.each do |message| %>
+      <% @residential_property.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-   <div class="form-group">
+  <div class="form-group">
     <%= f.hidden_field :landlord_id, value: current_landlord.id, autofocus: true, class: "form-control"%>
   </div>
   
@@ -24,12 +24,7 @@
     <%= f.label :island_id, class: "control-label"%><br />
     <%= f.select :island_id,  options_from_collection_for_select(Island.all, 'id', 'name'), class: "form-control" %>
   </div>
-  
-  <div class="form-group">
-    <%= f.label :category_id, nil,class: "control-label"%><br />
-    <%= select_tag :category_id,  options_from_collection_for_select(Category.all, 'id', 'name'), class: "form-control"%>
-  </div>
-  
+   
   <div class="form-group">
     <%= f.label :num_bedrooms, class: "control-label" %><br />
     <%= f.number_field :num_bedrooms, autofocus: true, class: "form-control" %>
@@ -55,12 +50,28 @@
     <%= f.text_area :description, autofocus: true, class: "form-control" %>
   </div>
 
-   <div class="form-group">
-            <%= label_tag "Photos", nil,class: "control-label"%><br />
-            <%= file_field_tag "images[]", type: :file, multiple: true, presigned: true, direct: true,  accept: 'image/png,image/jpg,image/jpeg', class: "form-control" %>
-  </div>
+ <div class="form-group">
+        <%= label_tag "Photos (Hold Down CTRL or SHIFT key to select multiple images)", nil,class: "control-label"%><br />
+        <%= file_field_tag "images[]", type: :file, multiple: :true, class: "form-control"%> <br/>
+
+        <%if @residential_property.photos.exists?%>
+             <%@residential_property.photos.each do |photo|%>
+                  <div>
+                      <%= image_tag photo.image.url(:thumb) %><br/>
+                  </div>
+            <%end%>   
+        <% end %>
+ </div>
+
+ <div class="form-group">
+       <%= label_tag "Amenities", nil,class: "control-label"%><br />
+       <%Amenity.all.each do |amenity|%>
+          <%=check_box_tag "residential_property_amenities[]", amenity.id, @residential_property.property_amenities.map{|i| i.amenity_id}.include?(amenity.id)%>
+          <%=label_tag amenity.name%>
+       <%end%>
+ </div>
  
   <div class="form-group">
-    <%= f.submit 'Create Property', class: "btn btn-default"%>
+    <%= f.submit "Save Property", class: "btn btn-default" %>
   </div>
 <% end %>

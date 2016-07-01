@@ -2,7 +2,7 @@
 
 <h1>Listing Commercial Properties</h1>
    <% @commercial_properties.each do |commercial_property| %>
-      <h3><%=commercial_property.property_name%></h3>
+     <%= link_to commercial_property.property_name, commercial_property_path(commercial_property)%>
       <p>Monthly Amount: $<%=commercial_property.monthly_amt%></p>
       <p>Island: <%=commercial_property.island.name%></p>
       <p>Category: <%=commercial_property.category.name%></p> 

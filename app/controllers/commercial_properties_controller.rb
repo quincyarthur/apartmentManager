@@ -11,6 +11,9 @@ class CommercialPropertiesController < ApplicationController
   end
 
   def show
+    @property_landlord = @commercial_property.landlord
+    @amount_of_interest_shown = @commercial_property.prospective_tenants.count
+    @prospective_tenant = @commercial_property.prospective_tenants.build
   end
 
   def new

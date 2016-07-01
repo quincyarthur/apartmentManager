@@ -1,4 +1,36 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_commercial_property_path(@commercial_property) %> |
-<%= link_to 'Back', commercial_properties_path %>
+
+<div>
+	<div>
+		<%=@commercial_property.property_name%>
+	</div>
+	<div>
+		<%=pluralize(@amount_of_interest_shown, 'person')%> have shown interest in this property
+	</div>
+	<div>
+		Monthly Amount: $<%=@commercial_property.monthly_amt%>
+		Description: <%=@commercial_property.description%>
+	</div>
+	<div>
+		Property Owner: <%=@property_landlord.name%>
+		Telephone Contact: <%=@property_landlord.phone_number%>
+		<a id="show_login">
+  			 Show Interest? <span class="glyphicon glyphicon-ok-circle"></span>
+		</a>
+	</div>
+</div>
+        
+<div id = "loginform">
+   <%=form_for @prospective_tenant, url:prospective_tenants_path do |f|%>
+   		<a id= "close_login"%>
+   			<span class="glyphicon glyphicon-remove"></span>
+   		</a>
+   		<%=f.hidden_field :property_id , value: @prospective_tenant.property.id%>
+   		<%=f.hidden_field  :property_type, value: @prospective_tenant.property.class.name%>
+   		<%=f.text_field(:name, placeholder: "Enter Name" )%>
+   		<%=f.telephone_field(:phone_number, placeholder: "Telephone Number" )%>
+   		<%=f.date_field(:appointment_date, placeholder: "When would you like to see the property?")%>
+   		<%=f.submit 'Schedule Appointment', class: "schedule_appointment"%>
+   <%end%>
+</div>

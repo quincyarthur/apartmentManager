@@ -1,8 +1,38 @@
 <h1>Landlord Dashboard</h1>
+
 <h3>Welcome <%=current_landlord.name%></h3>
-<%=link_to "Create Property Listing", new_residential_property_path%>
-<% @properties.each do |property|%>
-	<div>
-		<%=property.property_name%>
-	</div>
-<%end%>
+
+<div>
+	<h3>Commercial Properties <%=link_to "", new_commercial_property_path, class: "glyphicon glyphicon-plus"%></h3>
+	
+	<br/>
+
+	<%@commercial_properties.each do |property|%>
+		<div>
+			<%=property.property_name%>
+			<%=property.count_prospects%>
+			<span class="glyphicon glyphicon-eye-open"></span>
+			<%=link_to "", edit_commercial_property_path(property), class: "glyphicon glyphicon-pencil"%>
+			<%=link_to "", commercial_property_path(property), method: :delete, data: {confirm: "Are you sure?"},class: "glyphicon glyphicon-remove"%>
+		</div>
+		<br/>
+	<%end%>
+</div>
+
+<div>
+	<h3>Residential Properties <%=link_to "", new_residential_property_path, class: "glyphicon glyphicon-plus"%></h3>
+	
+	<br/>
+
+	<%@residential_properties.each do |property|%>
+		<div>
+			<%=property.property_name%>
+			<%=property.count_prospects%>
+			<span class="glyphicon glyphicon-eye-open"></span>
+			<%=link_to "", edit_residential_property_path(property), class: "glyphicon glyphicon-pencil"%>
+			<%=link_to "", residential_property_path(property), method: :delete, data: {confirm: "Are you sure?"},class: "glyphicon glyphicon-remove"%>
+		</div>
+		<br/>
+	<%end%>
+</div>
+

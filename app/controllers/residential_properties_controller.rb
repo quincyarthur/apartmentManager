@@ -11,55 +11,76 @@ class ResidentialPropertiesController < ApplicationController
   end
 
   def show
-    @property_landlord = @property.landlord
-    @amount_of_interest_shown = @property.prospective_tenants.count
-    @prospective_tenant = ProspectiveTenant.new()
+    @property_landlord = @residential_property.landlord
+    @amount_of_interest_shown = @residential_property.prospective_tenants.count
+    @prospective_tenant = @residential_property.prospective_tenants.build
   end
 
   def new
-    @property = ResidentialProperty.new
+    @residential_property = ResidentialProperty.new
+    @residential_property.photos.build
   end
   
   def edit
   end
   
   def create
-    @property = ResidentialProperty.new(property_params)
+    @residential_property = ResidentialProperty.new(property_params)
+
+    if params[:images].present?
+       params[:images].each do |pic|
+           @residential_property.photos.build( image: pic)
+       end  
+    end
+
+    if params[:property_amenities].present?
+       params[:property_amenities].each do |amenity|
+        @residential_property.property_amenities.build( amenity_id: amenity)
+       end  
+    end
 
     respond_to do |format|
-      if @property.save
-
-        if params[:images]
-            params[:images].each do |image|
-              @property.photos.create(image: image)
-            end  
-        end
-        
+      if @residential_property.save      
         format.html { redirect_to "/dashboard", notice: 'Property was successfully created.' }
-        format.json { render :show, status: :created, location: @property }
+        format.json { render :show, status: :created, location: @residential_property }
       else
         format.html { render :new }
-        format.json { render json: @property.errors, status: :unprocessable_entity }
+        format.json { render json: @residential_property.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   def update
     respond_to do |format|
-      if @property.update(property_params)
-        format.html { redirect_to @property, notice: 'Property was successfully updated.' }
-        format.json { render :show, status: :ok, location: @property }
+      if @residential_property.update(property_params)
+
+        if params[:images].present?
+           params[:images].each do |pic|
+              @residential_property.photos.create( image: pic)
+           end  
+        end
+
+        if params[:residential_property_amenities].present?
+           params[:residential_property_amenities].each do |amenity|
+              @residential_property.property_amenities.destroy
+              @residential_property.property_amenities.create(amenity_id: amenity)
+           end  
+        end
+
+        format.html { redirect_to @residential_property, notice: 'Property was successfully updated.' }
+        format.json { render :show, status: :ok, location: @residential_property }
       else
         format.html { render :edit }
-        format.json { render json: @property.errors, status: :unprocessable_entity }
+        format.json { render json: @residential_property.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @property.destroy
+    @residential_property.destroy
     respond_to do |format|
-      format.html { redirect_to properties_url, notice: 'Property was successfully destroyed.' }
+      format.html { redirect_to residential_properties_url, notice: 'Property was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -71,8 +92,9 @@ class ResidentialPropertiesController < ApplicationController
         redirect_to root_path
       end
     end
+
     def set_property
-      @property = ResidentialProperty.find(params[:id]) if params[:id].present?
+      @residential_property = ResidentialProperty.find(params[:id]) if params[:id].present?
     end
 
     def property_params

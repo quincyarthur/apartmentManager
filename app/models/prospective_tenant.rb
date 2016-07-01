@@ -1,7 +1,7 @@
 class ProspectiveTenant < ActiveRecord::Base
   belongs_to :property, polymorphic: true
   
-  validates :property_id, :name, :phone_number, :appointment_date, presence: true
+  validates :property_id, :property_type,:name, :phone_number, :appointment_date, presence: true
   validate :appointment_date_cannot_be_in_the_past
   
     def appointment_date_cannot_be_in_the_past

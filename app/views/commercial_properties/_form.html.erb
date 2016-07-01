@@ -11,7 +11,67 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <%= f.hidden_field :landlord_id, value: current_landlord.id, autofocus: true, class: "form-control"%>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :street_name, class: "control-label"%><br />
+    <%= f.text_field :street_name, autofocus: true, class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :island_id, class: "control-label"%><br />
+    <%= f.select :island_id,  options_from_collection_for_select(Island.all, 'id', 'name'), class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :category_id, nil,class: "control-label"%><br />
+    <%= select_tag :category_id,  options_from_collection_for_select(Category.all, 'id', 'name'), class: "form-control"%>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :square_feet, class: "control-label" %><br />
+    <%= f.number_field :square_feet, autofocus: true, class: "form-control" %>
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :num_units, class: "control-label"%><br />
+    <%= f.number_field :num_units, autofocus: true, class: "form-control" %>
+  </div>
+  
+   <div class="form-group">
+    <%= f.label :monthly_amt, class:"control-label"%><br />
+    <%= f.number_field :monthly_amt, autofocus: true, class: "form-control" %>
+  </div>
+  
+   <div class="form-group">
+    <%= f.label :description, class: "control-label"%><br />
+    <%= f.text_area :description, autofocus: true, class: "form-control" %>
+  </div>
+
+ <div class="form-group">
+        <%= label_tag "Photos (Hold Down CTRL or SHIFT key to select multiple images)", nil,class: "control-label"%><br />
+        <%= file_field_tag "images[]", type: :file, multiple: :true, class: "form-control"%> <br/>
+
+        <%if @commercial_property.photos.exists?%>
+             <%@commercial_property.photos.each do |photo|%>
+                  <div>
+                      <%= image_tag photo.image.url(:thumb) %><br/>
+                  </div>
+            <%end%>   
+        <% end %>
+ </div>
+
+ <div class="form-group">
+       <%= label_tag "Amenities", nil,class: "control-label"%><br />
+       <%Amenity.all.each do |amenity|%>
+          <%=check_box_tag "commerciial_property_amenities[]", amenity.id, @commercial_property.property_amenities.map{|i| i.amenity_id}.include?(amenity.id)%>
+          <%=label_tag amenity.name%>
+       <%end%>
+ </div>
+ 
+  <div class="form-group">
+      <%= f.submit "Save Property", class: "btn-default" %>
   </div>
 <% end %>

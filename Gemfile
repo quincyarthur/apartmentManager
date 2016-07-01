@@ -25,7 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'devise_invitable'
 gem 'pg'
-gem 'paperclip', github: 'thoughtbot/paperclip'
+gem 'paperclip', '~> 4.2.1'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -39,15 +39,14 @@ gem 'paperclip', github: 'thoughtbot/paperclip'
 group :development, :test do
 	# Use sqlite3 as the database for Active Record
 	gem 'sqlite3'
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-  #gem 'rspec-rails'
-  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-  gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
-end
-
-gem 'factory_girl_rails'
-gem 'ffaker'
+  	# Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  	gem 'byebug'
+  	#gem 'rspec-rails'
+  	%w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+ 		 gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
+  	end
+  	gem 'factory_girl_rails'
+  	gem 'ffaker'
 end
 
   # Access an IRB console on exception pages or by using <%= console %> in views
